@@ -1,0 +1,16 @@
+# Thư viện cài bằng npm
+node_modules/
+
+# Ảnh upload runtime (không cần push)
+assets/uploads/
+
+# Biến môi trường
+.env
+
+# Log & rác hệ thống
+*.log
+.DS_Store
+
+# Build tạm (nếu có)
+dist/
+build/

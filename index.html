@@ -1,0 +1,25 @@
+
+<!doctype html><html lang="vi"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hotmangay18 — Media</title><link rel="icon" href="assets/logo.svg"/><link rel="stylesheet" href="assets/styles.css?v=2.1.1"/>
+</head><body>
+<header class="header"><div class="container nav">
+  <a href="index.html" class="logo" aria-label="Hotmangay18 Home"><span class="badge">H</span><span>Hotmangay18</span></a>
+  <a class="active" href="index.html">Video</a><a href="magazine.html">Magazine</a>
+  <div class="spacer"></div>
+  <form class="search" role="search" onsubmit="return false;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/></svg>
+    <input id="searchInput" type="search" placeholder="Tìm video..." aria-label="Tìm video"/>
+  </form>
+</div></header>
+<main class="main"><div class="container">
+  <h1 class="section-title">Video mới</h1>
+  <div id="videoGrid" class="video-grid" aria-live="polite"></div>
+  <nav id="pagination" class="pagination" aria-label="Phân trang"></nav>
+</div></main>
+<footer class="footer"><div class="container">© <span id="year"></span> Hotmangay18</div></footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+<script src="js/age-gate.js" defer></script>
+<script src="js/app.js" defer></script>
+</body></html>
