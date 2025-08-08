@@ -15,7 +15,10 @@
         <div class="notice">Bằng cách tiếp tục, bạn xác nhận bạn đủ điều kiện theo pháp luật nơi bạn cư trú.</div>
       </div>`;
     document.body.appendChild(overlay);
-    function accept(){ localStorage.setItem('age_ok','1'); overlay.remove(); }
+    document.body.classList.add('age-open'); 
+    function accept(){ localStorage.setItem('age_ok','1'); 
+      document.body.classList.remove('age-open');
+      overlay.remove(); }
     function leave(){ window.location.href = 'https://www.google.com'; }
     overlay.querySelector('#ageEnter').addEventListener('click', accept);
     overlay.querySelector('#ageLeave').addEventListener('click', leave);

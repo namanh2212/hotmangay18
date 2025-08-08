@@ -7,9 +7,12 @@
   --footer:#150a27;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
+
 body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial}
 .container{max-width:1200px;margin:0 auto;padding:16px}
+.header{
+  contain: paint; /* ngăn header ảnh hưởng layout tổng khi blur/sticky */
+}
 .header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(1.2) blur(8px);
   background:linear-gradient(180deg, rgba(10,8,14,.85), rgba(0,0,0,.75));
   border-bottom:1px solid rgba(255,255,255,.06)}
@@ -20,7 +23,12 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui
 .nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;transition:background .2s ease,color .2s ease}
 .nav a.active,.nav a:hover{color:var(--text);background:rgba(154,92,255,.15)}
 .spacer{flex:1}
-.search{position:relative;min-width:200px;max-width:360px;flex:1}
+.search{
+  position:relative;
+  min-width: 0;                              /* QUAN TRỌNG: cho phép co lại */
+  flex: 1 1 360px;                           /* co giãn, mục tiêu 360px */
+  max-width: 360px;
+}
 .search input{width:100%;padding:10px 14px 10px 38px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
   background:var(--surface);color:var(--text);outline:none;transition:border-color .2s ease}
 .search input:focus{border-color:rgba(168,85,247,.7)}
@@ -58,7 +66,12 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui
   .video-grid{grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))}
   .video-details{grid-template-columns: 1fr 360px}
 }
+@media (max-width: 640px){
+  .search{ flex: 1 1 100%; max-width: 100%; order: 3; }
+  .nav a{ padding:6px 8px; }                 /* gọn gàng hơn trên mobile */
+}
 /* ==== Age Gate (18+) ==== */
+
 .age-overlay{
   position:fixed; inset:0;
   background:rgba(0,0,0,.55);
@@ -85,3 +98,75 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui
   background:#1a2030; color:#eceaf5; cursor:pointer
 }
 .btn.primary{ background:#a855f7; border-color:#a855f7; color:#fff }
+/* thêm hoặc cập nhật các dòng này */
+html, body { overflow-x: hidden; }          /* chặn tràn ngang ngoài ý muốn */
+.nav{
+  display:flex; align-items:center;
+  gap:12px;                                  /* trước là 16px cũng được */
+  min-height:64px;
+  flex-wrap: wrap;                           /* QUAN TRỌNG: cho phép xuống dòng */
+}
+/* ==== Footer contact ==== */
+.footer .container{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
+}
+.contact{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.icon-btn{
+  display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center;
+  border-radius:10px; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12); cursor:pointer;
+  transition:transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.icon-btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.2); }
+.icon-btn svg{ width:20px; height:20px; color:#d8c6f3; }
+.icon-btn .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+/* ==== FIX Age Gate (18+) ==== */
+body.age-open { overflow: hidden !important; }
+/* Đảm bảo không thể cuộn khi overlay hiển thị */
+.age-overlay{
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px) saturate(0.7);
+  display: flex !important;
+  align-items: center; justify-content: center;
+  z-index: 99999 !important;
+}
+
+.age-card{
+  max-width: 560px; width: 92%;
+  background: linear-gradient(180deg,#1a0b2e,#0b0615);
+  border: 1px solid rgba(168,85,247,.25);
+  border-radius: 16px; padding: 22px; color: #f3eaff;
+  box-shadow: 0 20px 60px rgba(0,0,0,.65);
+}
+.age-card h1{ margin:0 0 8px; font-size:24px }
+.age-card p{ margin:0 0 12px; color:#d7c9f1 }
+.age-actions{ display:flex; gap:10px; margin-top:12px }
+.notice{ font-size:12px; color:#cdb8f6 }
+
+/* Buttons dùng chung cho age-gate */
+.age-card .btn{
+  padding:10px 14px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:#1a2030; color:#eceaf5; cursor:pointer
+}
+.age-card .btn.primary{ background:#a855f7; border-color:#a855f7; color:#fff }
+/* ==== Mobile scroll gap fix ==== */
+html, body{
+  height: auto;            /* bỏ height:100% cũ nếu có */
+  min-height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;  /* chặn rubber-band ở đáy */
+}
+body{
+  min-height: 100svh;      /* viewport nhỏ ổn định khi thanh địa chỉ co/dãn */
+  overflow-anchor: none;   /* tránh nhảy neo cuộn */
+}
+
+/* Cô lập header sticky để tránh glitch */
+.header{ contain: paint; }
+
+/* Khi age-gate mở thì khóa cuộn (bạn đã có, để lại cho chắc) */
+body.age-open { overflow: hidden !important; }

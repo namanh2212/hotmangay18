@@ -183,7 +183,7 @@
   {
     "id": 13,
     "title": "Mẫu video 13 - Demo",
-    "views": 183888,
+    "views": 183889,
     "duration": "45:55",
     "thumbnail": "assets/thumb.svg",
     "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -193,7 +193,8 @@
       "stream",
       "18+"
     ],
-    "createdAt": 1754654486775
+    "createdAt": 1754654486775,
+    "lastViewedAt": 1754667301049
   },
   {
     "id": 14,
@@ -372,7 +373,7 @@
   {
     "id": 26,
     "title": "Mẫu video 26 - Demo",
-    "views": 953395,
+    "views": 953396,
     "duration": "38:50",
     "thumbnail": "assets/thumb.svg",
     "embedUrl": "https://www.youtube.com/embed/3GwjfUFyY6M",
@@ -381,7 +382,8 @@
       "man",
       "18+"
     ],
-    "createdAt": 1754654499775
+    "createdAt": 1754654499775,
+    "lastViewedAt": 1754667244436
   },
   {
     "id": 27,
@@ -458,7 +460,7 @@
   {
     "id": 32,
     "title": "Mẫu video 32 - Demo",
-    "views": 392837,
+    "views": 392840,
     "duration": "19:29",
     "thumbnail": "assets/thumb.svg",
     "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -469,6 +471,6 @@
       "18+"
     ],
     "createdAt": 1754654505775,
-    "lastViewedAt": 1754654960166
+    "lastViewedAt": 1754669178892
   }
 ]
