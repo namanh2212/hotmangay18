@@ -14,3 +14,8 @@ assets/uploads/
 # Build tạm (nếu có)
 dist/
 build/
+
+# runtime & secrets
+.env
+assets/uploads/
+/var/lib/hotmangay18/
