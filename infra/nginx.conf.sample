@@ -1,0 +1,82 @@
+server {
+  proxy_hide_header Referrer-Policy;
+   server_name traingon.online www.traingon.online; 
+
+  client_max_body_size 20m;
+   # Phục vụ file tĩnh /maintenance.html từ /var/www/html
+#location = /maintenance.html {
+ # root /var/www/html;           # => /var/www/html/maintenance.html
+  #add_header Cache-Control "no-store";
+#}
+
+#location = /video.html {
+ # return 302 https://$host/maintenance.html;
+#}
+
+  location / {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 60s;
+  }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/traingon.online/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/traingon.online/privkey.pem; # managed by Certbot
+# >>> THÊM 2 DÒNG NÀY <<<
+  # 1) Yêu cầu trình duyệt GỬI referer khi cross-origin (Bunny cần để không 403)
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *.b-cdn.net; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src 'self' https://iframe.mediadelivery.net https://www5.cbox.ws https://*.cbox.ws;" always;
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+location ^~ /admin/ {
+  auth_basic "Restricted - Admin";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+
+  proxy_pass http://127.0.0.1:3000;
+  proxy_http_version 1.1;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_read_timeout 60s;
+}
+
+
+
+}
+server {
+    if ($host = hotmangay18.duckdns.org) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+  listen 80;
+  server_name hotmangay18.duckdns.org;
+    return 404; # managed by Certbot
+
+
+}
+server {
+    if ($host = www.traingon.online) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = traingon.online) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+  listen 80;
+  server_name traingon.online www.traingon.online;
+    return 404; # managed by Certbot
+
+
+
+
+}
