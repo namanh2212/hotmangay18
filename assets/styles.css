@@ -170,3 +170,7 @@ body{
 
 /* Khi age-gate mở thì khóa cuộn (bạn đã có, để lại cho chắc) */
 body.age-open { overflow: hidden !important; }
+/* limit related to max 6 items */
+#related > *:nth-child(n+7),
+#related .card:nth-child(n+7),
+#related .video-card:nth-child(n+7){ display:none !important; }
